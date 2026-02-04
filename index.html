@@ -64,6 +64,7 @@ button {
     color: white;
     position: absolute;
     left: 120px;
+    transition: all 0.15s ease;
 }
 
 .hearts span {
@@ -89,7 +90,7 @@ button {
 
     <div class="buttons">
         <button id="yes" onclick="yesClicked()">YES 💖</button>
-        <button id="no" onmouseover="moveNo()">NO 💔</button>
+        <button id="no" onmousedown="moveNo()" ontouchstart="moveNo()">NO 💔</button>
     </div>
 </div>
 
@@ -98,8 +99,17 @@ button {
 <script>
 function moveNo() {
     const noBtn = document.getElementById("no");
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
+
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+    const padding = 20;
+
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
@@ -120,7 +130,7 @@ function startHearts() {
     const heartBox = document.getElementById("hearts");
 
     setInterval(() => {
-        let span = document.createElement("span");
+        const span = document.createElement("span");
         span.innerHTML = "❤️";
         span.style.left = Math.random() * 100 + "vw";
         span.style.animationDuration = (3 + Math.random() * 3) + "s";
